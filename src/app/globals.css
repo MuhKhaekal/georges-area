@@ -1,0 +1,258 @@
+@import "tailwindcss";
+
+:root {
+  color-scheme: dark;
+
+  --background: #0b1020;
+  --foreground: #f1f5f9;
+
+  --surface: #141c32;
+  --surface-raised: #1b2540;
+
+  --accent: #c7ff4d;
+  --accent-secondary: #818cf8;
+
+  --muted: #aab5cb;
+  --border: #29334b;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  --color-surface: var(--surface);
+  --color-surface-raised: var(--surface-raised);
+
+  --color-accent: var(--accent);
+  --color-accent-secondary: var(--accent-secondary);
+
+  --color-muted: var(--muted);
+  --color-border: var(--border);
+
+  --font-display: var(--font-space-grotesk);
+  --font-body: var(--font-manrope);
+  --font-mono: var(--font-dm-mono);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: var(--nav-height);
+}
+
+section[id] {
+  scroll-margin-top: 0;
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-manrope), sans-serif;
+  font-size: 16px;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+body,
+button,
+input,
+textarea,
+select {
+  font-family: var(--font-manrope), sans-serif;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  color: inherit;
+}
+
+button:focus-visible,
+a:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 5px;
+}
+
+::selection {
+  color: var(--background);
+  background: var(--accent);
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+.font-display {
+  font-family: var(--font-space-grotesk), sans-serif;
+}
+
+.font-mono {
+  font-family: var(--font-dm-mono), monospace;
+}
+
+.container-shell {
+  width: min(100% - 2.5rem, 1280px);
+  margin-inline: auto;
+}
+
+.section-padding {
+  padding-block: clamp(2.5rem, 4.5vw, 4rem);
+}
+
+.eyebrow {
+  color: var(--accent);
+  font-family: var(--font-dm-mono), monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  line-height: 1.6;
+  text-transform: uppercase;
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 180ms;
+}
+
+@media (max-width: 640px) {
+  :root {
+    --nav-height: 4.5rem;
+  }
+    
+  .container-shell {
+    width: min(100% - 2rem, 1280px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ===== AFTERDARK: Ambient motion ===== */
+
+.ambient-background {
+  --pointer-x: 50vw;
+  --pointer-y: 35vh;
+  contain: paint;
+}
+
+.ambient-grid {
+  background-image: linear-gradient(rgb(129 140 248 / 0.055) 1px, transparent 1px), linear-gradient(90deg, rgb(129 140 248 / 0.055) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: linear-gradient(to bottom, black 0%, rgb(0 0 0 / 0.65) 45%, transparent 100%);
+  animation: grid-drift 45s linear infinite;
+}
+
+.ambient-orb {
+  position: absolute;
+  width: min(44vw, 620px);
+  aspect-ratio: 1;
+  border-radius: 9999px;
+  filter: blur(100px);
+  opacity: 0.12;
+  will-change: transform;
+}
+
+.ambient-orb-lime {
+  top: 5%;
+  left: -16%;
+  background: #c7ff4d;
+}
+
+.ambient-orb-indigo {
+  top: 28%;
+  right: -18%;
+  background: #818cf8;
+  opacity: 0.16;
+}
+
+.ambient-pointer-glow {
+  background: radial-gradient(420px circle at var(--pointer-x) var(--pointer-y), rgb(199 255 77 / 0.055), transparent 70%);
+}
+
+.ambient-grain {
+  opacity: 0.12;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.16'/%3E%3C/svg%3E");
+}
+
+@keyframes grid-drift {
+  from {
+    background-position: 0 0;
+  }
+
+  to {
+    background-position: 64px 64px;
+  }
+}
+
+/* Anchor positioning: account for the sticky navbar. */
+html {
+  scroll-padding-top: 6.5rem;
+}
+
+section[id] {
+  scroll-margin-top: 6.5rem;
+}
+
+@media (max-width: 640px) {
+  html {
+    scroll-padding-top: 5.75rem;
+  }
+
+  section[id] {
+    scroll-margin-top: 5.75rem;
+  }
+
+  .ambient-grid {
+    background-size: 44px 44px;
+  }
+
+  .ambient-orb {
+    width: 80vw;
+    filter: blur(75px);
+    opacity: 0.1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ambient-grid {
+    animation: none;
+  }
+
+  .ambient-orb {
+    transform: none !important;
+  }
+}
